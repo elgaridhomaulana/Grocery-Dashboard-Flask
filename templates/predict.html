@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <h1 class="display-5">Review</h1>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form action="/predict_review" method="POST">
+            <textarea name="text-review" id="" cols="30" rows="10" class="form-control mt-4"></textarea>
+            <button type="submit" class="btn mt-3 mr-3" style="background-color: rgb(63, 185, 84); color: white;">Predict</button>
+            <button type="reset" class="btn mt-3" style="background-color: rgb(63, 185, 84); color: white;">Clear</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}

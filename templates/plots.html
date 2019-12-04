@@ -1,0 +1,163 @@
+{% extends 'layout.html' %}
+
+{% block body%}
+<!-- <style>
+div {
+    border:1px solid black; 
+}
+</style> -->
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-6">
+        <div class="chart" id="overall_count">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chart" id="vote_helpful">
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                    Seperti yang dapat kita lihat dari grafik bar di atas, review dengan rating 5 sangat banyak dibandingkan dengan rating lainnya.
+                     Bahkan apabila dijumlahkan antara rating 1 sampai dengan 4, jumlahnya masih lebih sedikit dibandingkan dengan jumlah rating 5.
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                    Data paling banyak dari kolom percentage_helpful adalah No Vote [0, 0], kemudian 100% dan 0%. 100% artinya adalah seluruh orang yang melakukan vote terhadap review tersebut menilai bahwa review tersebut membantu. 
+                    Sementara itu, 0% berarti dari seluruh orang yang melakukan vote tidak ada yang berpikir bahwa review tersebut membantu.            
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-6">
+        <div class="chart" id="good_review">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chart" id="bad_review">
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3 justify-content-center">
+        <div class="col-md-6">
+            <div class="chart" id="neutral_review">
+            </div>
+        </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                taste dan flavor merupakan kata-kata yang sering muncul di tiga kategori rating. Hal ini menujukkan bahwa produk sering sekali dinilai berdasarkan rasa dan flavornya.
+                <br><br>
+                Tidak terlihat perbedaan kata yang jelas antara review pada rating dengan kategori good, neutral, dan bad. Apabila kita akan memprediksi rating menggunakan review, tentu saja akan menghasilkan nilai akurasi yang buruk. 
+                Kita harus melakukan sesuatu sebelum kita membuat model apabila kita ingin menggunakan kolom ini untuk memprediksi rating.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-6">
+        <div class="chart" id="series_month_lines">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chart" id="series_month_bars">
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                Dari gambar di atas, dapat dilihat bahwa review paling banyak terjadi pada bulan Maret, dan jumlahnya semakin menurun sampai pada titik terendahnya pada bulan September. Dari bulan September, jumlah review semakin meningkat hingga bulan Desember.
+
+                Review baru diberikan setelah produk didapatkan, mungkin terdapat beberapa produk yang baru sampai ke tangan konsumen 1-2 bulan setelah pembelian. Sehingga untuk puncak review, pada Bulan Maret mungkin pembelian dilakukan pada Bulan Januari atau Februari. Begitu juga dengan titik terendah jumlah revieww, pada Bulan September, mungkin pembelian dilakukan pada Bulan Juli atau Agustus.
+                
+                Akan tetapi, dari grafik diatas, review secara umum banyak terjadi pada awal tahun dan akhir tahun, sedangkan tengah tahun mengalami penurunan.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-6">
+        <div class="chart" id="series_day_lines">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chart" id="series_day_bars">
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                Pada awal bulan hingga pertengahan bulan, terjadi penurunan jumlah review. 
+                Dari tengah bulan hingga akhir bulan, terjadi peningkatan. Jumlah review paling banyak terjadi pada akhir bulan, sekitar tanggal 25-28. Namun terjadi penurunan 29-31 sangat tajam.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-6">
+        <div class="chart" id="good_sum">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chart" id="bad_sum">
+        </div>
+    </div>
+</div>
+
+<div class="row ml-3 mt-3 justify-content-center">
+        <div class="col-md-6">
+            <div class="chart" id="neutral_sum">
+            </div>
+        </div>
+</div>
+
+<div class="row ml-3 mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                Perbedaan kata dari kolom summary untuk good, neutral, dan bad lebih terlihat perbedaannya dibandingkan dari kolom reviewText. 
+                Kolom ini lebih cocok digunakan untuk sentimen analisis.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    Plotly.plot('overall_count', {{data | safe}} , {})
+    Plotly.plot('vote_helpful', {{data2 | safe}} , {})
+    Plotly.plot('good_review', {{good_review | safe}} , {})
+    Plotly.plot('bad_review', {{bad_review | safe}} , {})
+    Plotly.plot('neutral_review', {{neutral_review | safe}} , {})
+    Plotly.plot('series_month_lines', {{series_month_lines | safe}} , {})
+    Plotly.plot('series_month_bars', {{series_month_bars | safe}} , {})
+    Plotly.plot('series_day_lines', {{series_day_lines | safe}} , {})
+    Plotly.plot('series_day_bars', {{series_day_bars | safe}} , {})
+    Plotly.plot('good_sum', {{good_sum | safe}} , {})
+    Plotly.plot('bad_sum', {{bad_sum | safe}} , {})
+    Plotly.plot('neutral_sum', {{neutral_sum | safe}} , {})
+</script>
+
+{% endblock body %}

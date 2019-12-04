@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="row justify-content-center mt-5">
+        <div class="col-md-11">
+        <h3>Hasil Pencarian Kata "{{nama_produk}}"</h3>
+        </div>
+    </div>
+
+<div class="row justify-content-center mt-3">
+    <div class="col-md-11">
+    <a href="/"><font size=4 class="mt-auto" style='color:  rgb(63, 185, 84);'>
+    Go Back Homepage
+    </font>
+    </a>
+    </div>
+</div>
+
+{% if jumlah_produk != 0 %}
+<div class="row justify-content-center">
+    {% for i in idx %}
+    <div class="col-md-2 mt-3 ml-3">
+    <div class="card w-110 h-100">
+        <img src="{{df_content_based['imUrl'].loc[i]}}" height="180px" width="120px" class="ml-5 mt-2" alt="...">
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title" align='center'>{{' '.join(df_content_based['title'].loc[i].split()[:6])}}</h5>
+            <p align='center' class="card-text mb-2">${{df_content_based['price'].loc[i]}} <br> {{df_content_based['count_review'].loc[i]}} reviews</p>
+        <a href="/detail?index={{i}}" class="btn btn-success mt-auto">Product Detail</a>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="row justify-content-center">
+    <div class="col-md-11">
+        <div class="alert alert-primary mt-3" role="alert">
+            Tidak ditemukan produk dengan kata kunci tersebut!
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock body %}

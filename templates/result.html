@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="jumbotron">
+            <div class="row justify-content-center">
+                <h2 class="display-6">Review Text</h2>
+            </div>
+            <p class="lead mt-3 text-center">{{review_text}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-1">
+
+    {% if result_predict == 'Great' %}
+    <h1 class="display-4 text-success">Good Review</h1>
+    {% endif%}
+
+    {% if result_predict == 'Bad' %}
+    <h1 class="display-4 text-danger">Bad Review</h1>
+    {% endif%}
+</div>
+
+<div class="row justify-content-center mt-3">
+    <div class="card mr-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title text-center">Good Review Probability</h5>
+            <h6 class="card-subtitle mb-2 text-muted text-center">{{probability_good}}</h6>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title text-center">Bad Review Probability</h5>
+            <h6 class="card-subtitle mb-2 text-muted text-center">{{probability_bad}}</h6>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
